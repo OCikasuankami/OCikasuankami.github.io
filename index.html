@@ -856,7 +856,7 @@
     </p>
 
     <div class="max-w-xl mx-auto">
-        <form action="https://docs.google.com/forms/d/e/1FAIpQLSdlE2TITYzcalHAQIVe0AqArOCrI43FnBvOGkI5ZR9buvSUWg/viewform?usp=header" method="POST" class="space-y-6">
+        <form id="comment-form" action="https://docs.google.com/forms/d/e/1FAIpQLScsB_YQ-f9L_fF6cQ8zV-p-1R5D8Fj2y3r9kG-V8kH4WqG_9w/formResponse" method="POST" class="space-y-6">
             <div>
                 <label for="name" class="block text-sm font-medium text-text dark:text-text-dark">姓名</label>
                 <div class="mt-1">
@@ -865,7 +865,7 @@
             </div>
 
             <div>
-                <label for="email" class="block text-sm font-medium text-text dark:text-text-dark">電子郵件(必填)</label>
+                <label for="email" class="block text-sm font-medium text-text dark:text-text-dark">電子郵件 (選填)</label>
                 <div class="mt-1">
                     <input type="email" name="entry.1555519894" id="email" autocomplete="email" class="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-text-dark shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2" placeholder="你的電子郵件地址">
                 </div>
@@ -884,8 +884,50 @@
                 </button>
             </div>
         </form>
+        <div id="success-message" class="hidden mt-4 text-center text-green-500 font-bold">
+            感謝您的留言！
+        </div>
+        <div id="error-message" class="hidden mt-4 text-center text-red-500 font-bold">
+            送出失敗，請再試一次。
+        </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('comment-form');
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+
+        form.addEventListener('submit', function(event) {
+            // 阻止表單的預設提交行為，避免網頁跳轉
+            event.preventDefault();
+
+            // 取得表單資料
+            const formData = new FormData(form);
+
+            // 使用 fetch API 非同步送出資料
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // 必須設定為 no-cors
+            })
+            .then(response => {
+                // Google 表單的 no-cors 回應無法判斷成功或失敗，
+                // 但通常只要沒有錯誤發生，都視為成功
+                successMessage.classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+                form.reset(); // 清空表單
+            })
+            .catch(error => {
+                // 如果發生網路錯誤
+                errorMessage.classList.remove('hidden');
+                successMessage.classList.add('hidden');
+                console.error('Error:', error);
+            });
+        });
+    });
+</script>
             <section id="glossary" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft rounded-lg shadow-md py-12 px-6 md:px-10">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-primary dark:text-primary-dark">關鍵術語</h2>
                 <dl class="grid md:grid-cols-2 gap-x-8 gap-y-6">
