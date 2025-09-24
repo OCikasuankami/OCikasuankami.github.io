@@ -847,87 +847,34 @@
         </div>
     </div>
 </section>
-<section id="comment-section" class="animate-on-scroll bg-gray-100 dark:bg-gray-800 p-8 rounded-xl shadow-lg mt-8">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-text dark:text-text-dark">
-        <i class="fas fa-comment-dots text-primary dark:text-primary-dark mr-3"></i>可留言區域
+<section id="guestbook" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft p-8 rounded-xl shadow-lg mt-8">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        <i class="fas fa-comments text-primary dark:text-primary-dark mr-3"></i>留言板
     </h2>
-    <p class="text-center text-lg text-text-secondary dark:text-text-dark-secondary max-w-3xl mx-auto mb-8">
-        我們期待聽到您的聲音！歡迎在這裡分享您的心得、提問，或對壽豐部落的任何感想。
+    <p class="text-center text-lg text-text-secondary dark:text-text-dark-secondary max-w-3xl mx-auto mb-12">
+        謝謝您看到了這裡，如果可以，請幫我們留下感想及回饋喔~
     </p>
 
-    <div class="max-w-xl mx-auto">
-        <form id="comment-form" action="https://docs.google.com/forms/d/e/1FAIpQLScsB_YQ-f9L_fF6cQ8zV-p-1R5D8Fj2y3r9kG-V8kH4WqG_9w/formResponse" method="POST" class="space-y-6">
-            <div>
-                <label for="name" class="block text-sm font-medium text-text dark:text-text-dark">姓名</label>
-                <div class="mt-1">
-                    <input type="text" name="entry.1017849174" id="name" autocomplete="name" class="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-text-dark shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2" placeholder="請輸入你的名字">
-                </div>
-            </div>
-
-            <div>
-                <label for="email" class="block text-sm font-medium text-text dark:text-text-dark">電子郵件 (選填)</label>
-                <div class="mt-1">
-                    <input type="email" name="entry.1555519894" id="email" autocomplete="email" class="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-text-dark shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2" placeholder="你的電子郵件地址">
-                </div>
-            </div>
-
-            <div>
-                <label for="comment" class="block text-sm font-medium text-text dark:text-text-dark">留言</label>
-                <div class="mt-1">
-                    <textarea id="comment" name="entry.1170796338" rows="4" class="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-text-dark shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2" placeholder="在這裡寫下你的留言..."></textarea>
-                </div>
-            </div>
-
-            <div>
-                <button type="submit" class="btn-hover w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/80 dark:bg-primary-dark dark:hover:bg-primary-dark/80 dark:text-background-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                    送出留言
-                </button>
-            </div>
-        </form>
-        <div id="success-message" class="hidden mt-4 text-center text-green-500 font-bold">
-            感謝您的留言！
+    <form id="guestbook-form" action="mailto:cihamengan974@gmail.com" method="post" enctype="text/plain" class="max-w-xl mx-auto space-y-6">
+        <div>
+            <label for="name" class="block text-text-secondary dark:text-text-dark-secondary mb-2">姓名 (中文或族語名字)</label>
+            <input type="text" id="name" name="姓名" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark bg-background dark:bg-background-dark text-text dark:text-text-dark" placeholder="請輸入您的姓名">
         </div>
-        <div id="error-message" class="hidden mt-4 text-center text-red-500 font-bold">
-            送出失敗，請再試一次。
+        <div>
+            <label for="email" class="block text-text-secondary dark:text-text-dark-secondary mb-2">電子郵件 <span class="text-red-500">*</span></label>
+            <input type="email" id="email" name="電子郵件" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark bg-background dark:bg-background-dark text-text dark:text-text-dark" placeholder="example@email.com" required>
         </div>
-    </div>
+        <div>
+            <label for="message" class="block text-text-secondary dark:text-text-dark-secondary mb-2">留言心得</label>
+            <textarea id="message" name="留言心得" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark bg-background dark:bg-background-dark text-text dark:text-text-dark" placeholder="請在此分享您的想法..." required></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn-hover inline-block bg-primary text-white dark:bg-primary-dark dark:text-background-dark font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transform transition-all duration-300">
+                傳送留言 <i class="fas fa-paper-plane ml-2"></i>
+            </button>
+        </div>
+    </form>
 </section>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('comment-form');
-        const successMessage = document.getElementById('success-message');
-        const errorMessage = document.getElementById('error-message');
-
-        form.addEventListener('submit', function(event) {
-            // 阻止表單的預設提交行為，避免網頁跳轉
-            event.preventDefault();
-
-            // 取得表單資料
-            const formData = new FormData(form);
-
-            // 使用 fetch API 非同步送出資料
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors' // 必須設定為 no-cors
-            })
-            .then(response => {
-                // Google 表單的 no-cors 回應無法判斷成功或失敗，
-                // 但通常只要沒有錯誤發生，都視為成功
-                successMessage.classList.remove('hidden');
-                errorMessage.classList.add('hidden');
-                form.reset(); // 清空表單
-            })
-            .catch(error => {
-                // 如果發生網路錯誤
-                errorMessage.classList.remove('hidden');
-                successMessage.classList.add('hidden');
-                console.error('Error:', error);
-            });
-        });
-    });
-</script>
             <section id="glossary" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft rounded-lg shadow-md py-12 px-6 md:px-10">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-primary dark:text-primary-dark">關鍵術語</h2>
                 <dl class="grid md:grid-cols-2 gap-x-8 gap-y-6">
