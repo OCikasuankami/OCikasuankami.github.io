@@ -231,7 +231,9 @@
                     <a href="#interview" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">文化訪談</a>
                     <a href="#ceremony" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">傳統祭儀</a>
                     <a href="#age-grade" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">年齡階級</a>
+                    <a href="#rite of passage" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">成年儀式</a>
                     <a href="#glossary" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">關鍵術語</a>
+                    <a href="#guestbook" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">留言板</a>
                 </nav>
 
                 <div class="flex items-center space-x-4">
@@ -260,19 +262,19 @@
             <div class="container mx-auto z-10">
                 <div class="max-w-4xl mx-auto">
                     <h2 class="text-4xl md:text-6xl font-bold text-text dark:text-text-dark mb-4 animate__animated animate__fadeInDown">
-                        <span class="text-primary dark:text-primary-dark">七腳川社</span>的傳承<br>壽豐橋頭部落
+                        <span class="text-primary dark:text-primary-dark">七腳川社</span>的傳承<br>壽豐<span class="text-primary dark:text-primary-dark">橋頭部落</span>
                     </h2>
                     <p class="text-lg md:text-xl text-text-secondary dark:text-text-dark-secondary mb-8 animate__animated animate__fadeInUp animate__delay-1s">
                         深入了解歸順後的七腳川族人，後續為了保存文化而做出的行動。
                     </p>
                     <a href="#formation" class="btn-hover inline-block bg-primary text-white dark:bg-primary-dark dark:text-background-dark font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transform transition-all duration-300 animate__animated animate__pulse animate__delay-2s animate__infinite">
-                        開始閱讀 <i class="fas fa-arrow-down ml-2"></i>
+                        開始閱讀吧! <i class="fas fa-arrow-down ml-2"></i>
                     </a>
                 </div>
                 <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto animate__animated animate__fadeIn animate__delay-2s">
                     <div class="text-center">
                         <i class="fas fa-shoe-prints text-4xl text-secondary dark:text-secondary-dark mb-2"></i>
-                        <h3 class="font-semibold">歷史的足跡</h3>
+                        <h3 class="font-semibold">歷史足跡</h3>
                     </div>
                     <div class="text-center">
                         <i class="fas fa-sitemap text-4xl text-secondary dark:text-secondary-dark mb-2"></i>
@@ -294,7 +296,7 @@
 
             <section id="formation" class="animate-on-scroll">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
-                    <i class="fas fa-map-signs text-primary dark:text-primary-dark mr-3"></i>歷史淵源：從七腳川到壽豐
+                    <i class="fas fa-map-signs text-primary dark:text-primary-dark mr-3"></i>歷史淵源
                 </h2>
                 <div class="grid md:grid-cols-5 gap-8 items-center">
                     <div class="md:col-span-3">
@@ -332,7 +334,7 @@
 
             <section id="composition" class="animate-on-scroll">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
-                    <i class="fas fa-sitemap text-primary dark:text-primary-dark mr-3"></i>部落構成：一脈相承的三個家園
+                    <i class="fas fa-sitemap text-primary dark:text-primary-dark mr-3"></i>部落構成
                 </h2>
                 <p class="text-center text-lg text-text-secondary dark:text-text-dark-secondary max-w-3xl mx-auto mb-12">
                     今日的壽豐部落由七腳川社後裔組成的阿美族部落，位於花蓮縣壽豐鄉。 <a href="#glossary-shoufeng-tribe"></a></span></span>，在行政上被劃分為三個緊密相連的小部落，各自擁有獨特的名稱由來與故事。
@@ -366,7 +368,7 @@
             
             <section id="interview" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft p-8 rounded-xl shadow-lg">
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
-        <i class="fas fa-microphone-lines text-primary dark:text-primary-dark mr-3"></i>文化復振者訪談
+        <i class="fas fa-microphone-lines text-primary dark:text-primary-dark mr-3"></i>文化訪談
     </h2>
     <p class="text-lg text-text-secondary dark:text-text-dark-secondary text-center max-w-3xl mx-auto mb-10">
         我們的調查最以橋頭部落(Cihamengan)為主，因此我們訪問了:
@@ -669,7 +671,7 @@
 
             <section id="age-grade" x-data="{ currentGrade: 'ladiwas' }" class="animate-on-scroll">
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
-        <i class="fas fa-shield-alt text-primary dark:text-primary-dark mr-3"></i>年齡階級和訓練
+        <i class="fas fa-shield-alt text-primary dark:text-primary-dark mr-3"></i>年齡階級
     </h2>
     <p class="text-center text-lg text-text-secondary dark:text-text-dark-secondary max-w-3xl mx-auto mb-12">
         年齡階級是維繫部落社會結構與文化傳承的核心，每個階級都肩負著不同的責任與任務，
@@ -682,7 +684,7 @@
             <button @click="currentGrade = 'ladiwas'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'ladiwas', 'border-transparent': currentGrade !== 'ladiwas'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Ladiwas</button>
             <button @click="currentGrade = 'alamay'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'alamay', 'border-transparent': currentGrade !== 'alamay'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Alamay</button>
             <button @click="currentGrade = 'maoway'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'maoway', 'border-transparent': currentGrade !== 'maoway'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Ma'uway</button>
-            <button @click="currentGrade = 'alemet'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'alemet', 'border-transparent': currentGrade !== 'alemet'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">'Alemet</button>
+            <button @click="currentGrade = 'alemet'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'alemet', 'border-transparent': currentGrade !== 'alemet'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Alemet</button>
             <button @click="currentGrade = 'kohakoh'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'kohakoh', 'border-transparent': currentGrade !== 'kohakoh'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Kuhakuh</button>
             <button @click="currentGrade = 'copolan'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'copolan', 'border-transparent': currentGrade !== 'copolan'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Cupulan</button>
             <button @click="currentGrade = 'alafangas'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'alafangas', 'border-transparent': currentGrade !== 'alafangas'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Alafangas</button>
@@ -753,14 +755,14 @@
                 <img src="https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.oi/refs/heads/main/%E8%87%BA%E6%9D%B1%E7%81%AB%E5%88%BA%E6%9C%A8.jpg" alt="'Alemet 階級" class="object-cover object-center">
             </div>
             <div>
-                <h3 class="text-2xl font-bold mb-4">'Alemet 階級</h3>
+                <h3 class="text-2xl font-bold mb-4">Alemet 階級</h3>
                 <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
                     級名語意 : 臺東火刺木（狀元紅）<br>
-                    象徵意涵 : 比喻生存能力強，於惡劣環境中仍能有所做為。
+                    象徵意涵 :象徵強韌的生命力，即使在惡劣環境中也能生存茁壯，代表堅毅與適應力。
                     <br>
                     年齡分布 : 1985-1991 年次
                     <br><br>
-                    因為成員位處於壯年時期，'Alemet的重要性在部落中不言而喻。無論是祭儀會場中的各項主要工作，例如獎品管理、牛隻分類、環境管理、人員調配...等，都有'Alemet的身影。也因為年齡剛好處於壯年時期，跟safa們能有相同的話題。'Alemet時常能夠指導弟弟們協助部落事務，並逐漸訓練弟弟們能夠接掌部落主要的部落事儀，在部落中為優良的中流砥柱。
+                    Alemet 是部落中屬於第四級的階級，成員多已達適婚年齡。因具備較高的行動力，Alemet 在年祭中扮演機動性的角色，主要負責場地整理、分配食物，其餘工作則依照上級族人的指示執行。「火刺木」亦稱「狀元紅」，其果實火紅鮮豔，象徵著堅毅、榮耀與不屈的精神。
                     <br><br>
                     「...」-
                 </p>
@@ -830,7 +832,7 @@
     </div>
 </section>
 
-<section id="mamiseral-ceremony" x-data="{ currentStep: 'step-one' }" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft p-8 rounded-xl shadow-lg mt-8">
+<section id="rite of passage" x-data="{ currentStep: 'step-one' }" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft p-8 rounded-xl shadow-lg mt-8">
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
         <i class="fas fa-hand-fist text-primary dark:text-primary-dark mr-3"></i>Mamiseral 成年儀式
     </h2>
@@ -898,6 +900,101 @@
         </div>
     </div>
 </section>
+
+            <section id="glossary" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft rounded-lg shadow-md py-12 px-6 md:px-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-primary dark:text-primary-dark">關鍵術語</h2>
+                <dl class="grid md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div id="glossary-cikasuan">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">七腳川社 (Cikasuan)</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">過去位於花蓮吉安鄉的南勢阿美族部落，其阿美語名稱為Cikasuan，意為「出產薪柴甚多的地方」。但因爆發七腳川事件，族人被迫遷徙、逃離，事件過後，有些族人選擇歸順，有些族人選擇留在遷徙後的部落。而現在歸順的地點位於吉安鄉太昌部落，成為了「新七腳川社」</dd>
+                    </div>
+                    <div id="glossary-cikasuan-incident">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">七腳川事件</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">1908年發生的阿美族抗日事件，1914年後歸順。七腳川社遭日軍焚毀，族人被迫離開家園，四處遷徙。現今，七腳川的後裔們不斷尋找最初居住的部落、歌謠、祭典，才成為現在的「七腳川」。</dd>
+                    </div>
+                    <div id="glossary-mapapaliw">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">Mapapaliw</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">阿美族語，指「換工」，為了保護在農務期間工作的婦女，頭目下令族人互相協助，因此產生了「Mapapaliw」這個互助詞彙。</dd>
+                    </div>
+                    <div id="glossary-bagua-net">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">八卦網</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">一種捕魚工具，由繩子、網袋和鉛塊（網墜）組成，網緣圍繞鉛塊，撒出後能快速張開成圓形並沉入水中，利用重力在水中形成立體空間捕魚。</dd>
+                    </div>
+                    <div id="glossary-fish-trap">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">魚荃</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">一種傳統的捕魚工具，主要由竹子或黃藤編織而成，呈圓錐形狀，內部設有漏斗狀入口，使魚蝦能夠進入卻難以游出，以達到捕獲目的</dd>
+                    </div>
+                    <div id="glossary-fish-vine">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">魚藤</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">一種含有天然毒素的植物，因其根部含有魚藤酮等天然毒素，搗爛根部汁液來毒魚、捕捉魚類，是早期農民和原住民廣泛使用的植物。 </dd>
+                    </div>
+                </dl>
+            </section>
+        </div>
+    </main>
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            // Theme Toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlTag = document.documentElement;
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            if (currentTheme === 'dark') {
+                htmlTag.classList.add('dark');
+            }
+            themeToggle.addEventListener('click', () => {
+                if (htmlTag.classList.contains('dark')) {
+                    htmlTag.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    htmlTag.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Interviewer Content Toggle
+            window.showProfile = function (profileId) {
+                const contents = document.querySelectorAll('.interview-content');
+                contents.forEach(content => content.classList.remove('active'));
+                const targetContent = document.getElementById(profileId + '-content');
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+                const quotes = document.querySelectorAll('[id^="quote-"]');
+                quotes.forEach(quote => quote.classList.add('hidden'));
+                const targetQuote = document.getElementById('quote-' + profileId);
+                if (targetQuote) {
+                    targetQuote.classList.remove('hidden');
+                }
+            };
+            // Initial call to set the default active profile
+            showProfile('li-wenhui');
+
+            // Scroll Animation
+            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            elementsToAnimate.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
 <section id="guestbook" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft p-8 rounded-xl shadow-lg mt-8">
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
         <i class="fas fa-comments text-primary dark:text-primary-dark mr-3"></i>留言板
@@ -965,98 +1062,4 @@
         });
     </script>
 </section>
-            <section id="glossary" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft rounded-lg shadow-md py-12 px-6 md:px-10">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-primary dark:text-primary-dark">關鍵術語</h2>
-                <dl class="grid md:grid-cols-2 gap-x-8 gap-y-6">
-                    <div id="glossary-cikasuan">
-                        <dt class="text-xl font-semibold text-text dark:text-text-dark">七腳川社 (Cikasuan)</dt>
-                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">過去位於花蓮吉安鄉的南勢阿美族部落，其阿美語名稱為Cikasuan，意為「出產薪柴甚多的地方」。但因爆發七腳川事件，族人被迫遷徙、逃離，事件過後，有些族人選擇歸順，有些族人選擇留在遷徙後的部落。而現在歸順的地點位於吉安鄉太昌部落，成為了「新七腳川社」</dd>
-                    </div>
-                    <div id="glossary-cikasuan-incident">
-                        <dt class="text-xl font-semibold text-text dark:text-text-dark">七腳川事件</dt>
-                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">1908年發生的阿美族抗日事件，1914年後歸順。七腳川社遭日軍焚毀，族人被迫離開家園，四處遷徙。現今，七腳川的後裔們不斷尋找最初居住的部落、歌謠、祭典，才成為現在的「七腳川」。</dd>
-                    </div>
-                    <div id="glossary-mapapaliw">
-                        <dt class="text-xl font-semibold text-text dark:text-text-dark">Mapapaliw</dt>
-                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">阿美族語，指「換工」，為了保護在農務期間工作的婦女，頭目下令族人互相協助，因此產生了「Mapapaliw」這個互助詞彙。</dd>
-                    </div>
-                    <div id="glossary-bagua-net">
-                        <dt class="text-xl font-semibold text-text dark:text-text-dark">八卦網</dt>
-                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">一種捕魚工具，由繩子、網袋和鉛塊（網墜）組成，網緣圍繞鉛塊，撒出後能快速張開成圓形並沉入水中，利用重力在水中形成立體空間捕魚。</dd>
-                    </div>
-                    <div id="glossary-fish-trap">
-                        <dt class="text-xl font-semibold text-text dark:text-text-dark">魚荃</dt>
-                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">一種傳統的捕魚工具，主要由竹子或黃藤編織而成，呈圓錐形狀，內部設有漏斗狀入口，使魚蝦能夠進入卻難以游出，以達到捕獲目的</dd>
-                    </div>
-                    <div id="glossary-fish-vine">
-                        <dt class="text-xl font-semibold text-text dark:text-text-dark">魚藤</dt>
-                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">一種含有天然毒素的植物，因其根部含有魚藤酮等天然毒素，搗爛根部汁液來毒魚、捕捉魚類，是早期農民和原住民廣泛使用的植物。 </dd>
-                    </div>
-                </dl>
-            </section>
-        </div>
-    </main>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Theme Toggle
-            const themeToggle = document.getElementById('theme-toggle');
-            const htmlTag = document.documentElement;
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            if (currentTheme === 'dark') {
-                htmlTag.classList.add('dark');
-            }
-            themeToggle.addEventListener('click', () => {
-                if (htmlTag.classList.contains('dark')) {
-                    htmlTag.classList.remove('dark');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    htmlTag.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
-                }
-            });
-
-            // Mobile Menu Toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            // Interviewer Content Toggle
-            window.showProfile = function (profileId) {
-                const contents = document.querySelectorAll('.interview-content');
-                contents.forEach(content => content.classList.remove('active'));
-                const targetContent = document.getElementById(profileId + '-content');
-                if (targetContent) {
-                    targetContent.classList.add('active');
-                }
-                const quotes = document.querySelectorAll('[id^="quote-"]');
-                quotes.forEach(quote => quote.classList.add('hidden'));
-                const targetQuote = document.getElementById('quote-' + profileId);
-                if (targetQuote) {
-                    targetQuote.classList.remove('hidden');
-                }
-            };
-            // Initial call to set the default active profile
-            showProfile('li-wenhui');
-
-            // Scroll Animation
-            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-            elementsToAnimate.forEach(element => {
-                observer.observe(element);
-            });
-        });
-    </script>
-</body>
-
 </html>
