@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="light scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="深入了解花蓮縣壽豐部落的歷史、文化與傳承，內容包含:壽豐三大部落、訪談、祭典、年齡階層...等介紹。">
+    <title>回到七腳川：壽豐部落的故事</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#00A99D', dark: '#FF6F61' },
+                        secondary: { DEFAULT: '#FF6F61', dark: '#00A99D' },
+                        background: { DEFAULT: '#F7F9FB', dark: '#1A2A3A', light: '#FFFFFF', 'dark-soft': '#2C3E50' },
+                        text: { DEFAULT: '#2C3E50', dark: '#E0E0E0', 'secondary': '#55606A', 'dark-secondary': '#B0B0B0' },
+                        accent: { DEFAULT: '#FFC107', dark: '#FFC107' }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-hover {
+            transition: all 0.2s ease;
+        }
+
+        .btn-hover:hover {
+            transform: scale(1.05);
+        }
+
+        /* Tooltip Styles */
+        .tooltip-trigger {
+            border-bottom: 2px dotted #00A99D;
+            cursor: help;
+            position: relative;
+        }
+
+        .dark .tooltip-trigger {
+            border-bottom-color: #FF6F61;
+        }
+
+        .tooltip-content {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2C3E50;
+            color: #E0E0E0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            z-index: 10;
+            width: max-content;
+            max-width: 280px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            text-align: left;
+        }
+
+        .dark .tooltip-content {
+            background-color: #F7F9FB;
+            color: #1A2A3A;
+        }
+
+        .tooltip-content a {
+            color: #FF6F61;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .dark .tooltip-content a {
+            color: #00A99D;
+        }
+
+        .tooltip-trigger:hover .tooltip-content {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Timeline styles */
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            border-left: 2px solid #00A99D;
+        }
+
+        .dark .timeline-item {
+            border-left-color: #FF6F61;
+        }
+
+        .timeline-item:last-child {
+            border-left: none;
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -10px;
+            top: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #FF6F61;
+            border-radius: 50%;
+            border: 4px solid #F7F9FB;
+        }
+
+        .dark .timeline-dot {
+            background-color: #00A99D;
+            border-color: #1A2A3A;
+        }
+        
+        /* New rule for spacing between dot and text */
+        .timeline-item h4,
+        .timeline-item p {
+            margin-left: 20px;
+        }
+
+        /* Interviewee photo circle */
+        .interviewee-photo, .age-grade-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 auto 1rem;
+            overflow: hidden;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .interviewee-photo, .dark .age-grade-photo {
+            border-color: #1A2A3A;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+
+        .interviewee-photo img, .age-grade-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .interview-content {
+            display: none;
+        }
+
+        .interview-content.active {
+            display: grid;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .animate-on-scroll {
+                animation: none !important;
+                transition: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            .card-hover:hover,
+            .btn-hover:hover {
+                transform: none;
+            }
+
+            .tooltip-content {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-sans bg-background text-text dark:bg-background-dark dark:text-text-dark">
+
+    <header id="header" class="sticky top-0 z-50 w-full transition-all duration-300 bg-background/80 dark:bg-background-dark/80 backdrop-blur-sm shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-20">
+                <a href="#hero" class="flex items-center space-x-2">
+                    <i class="fas fa-water text-primary dark:text-primary-dark text-2xl"></i>
+                    <h1 class="text-xl font-bold text-text dark:text-text-dark">壽豐山下部落篇</h1>
+                </a>
+
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#formation" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">歷史淵源</a>
+                    <a href="#composition" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">部落構成</a>
+                    <a href="#interview" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">文化訪談</a>
+                    <a href="#ceremony" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">傳統祭儀</a>
+                    <a href="#age-grade" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">年齡階級</a>
+                    <a href="#rite of passage" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">成年儀式</a>
+                    <a href="#glossary" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">關鍵術語</a>
+                    <a href="#guestbook" class="font-medium text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">留言板</a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" aria-label="Toggle Dark Mode" class="text-text-secondary dark:text-text-dark-secondary hover:text-primary dark:hover:text-primary-dark transition-colors">
+                        <i class="fas fa-sun dark:hidden"></i>
+                        <i class="fas fa-moon hidden dark:inline"></i>
+                    </button>
+                    <button id="mobile-menu-button" class="md:hidden text-text dark:text-text-dark" aria-label="Open menu">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="#formation" class="block py-2 px-4 text-sm hover:bg-background-dark-soft rounded">歷史淵源</a>
+                <a href="#composition" class="block py-2 px-4 text-sm hover:bg-background-dark-soft rounded">部落構成</a>
+                <a href="#interview" class="block py-2 px-4 text-sm hover:bg-background-dark-soft rounded">文化訪談</a>
+                <a href="#ceremony" class="block py-2 px-4 text-sm hover:bg-background-dark-soft rounded">傳統祭儀</a>
+                <a href="#age-grade" class="block py-2 px-4 text-sm hover:bg-background-dark-soft rounded">年齡階級</a>
+                <a href="#glossary" class="block py-2 px-4 text-sm hover:bg-background-dark-soft rounded">關鍵術語</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="relative h-[80vh] flex items-end justify-start 
+    bg-[url('https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.io/refs/heads/main/S__31555606.jpg')] 
+    dark:bg-[url('https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.io/refs/heads/main/%E5%B1%B1%E4%B8%8B2.jpg')] 
+    bg-cover bg-center overflow-hidden pl-16 pb-8">
+    
+    <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background dark:from-background-dark to-transparent z-20"></div>
+    
+    <div class="absolute inset-0 bg-gradient-to-r from-background/90 to-transparent dark:bg-gradient-to-r dark:from-background-dark/90 dark:to-transparent z-10"></div>
+
+    <div class="container mx-auto z-30">
+        
+        <div class="max-w-4xl mx-0 text-left">
+            
+            <h2 class="text-4xl md:text-6xl font-bold text-text dark:text-text-dark mb-4 animate__animated animate__fadeInDown">
+                <span class="text-primary dark:text-primary-dark">七腳川</span>社的傳承<br><span class="text-primary dark:text-primary-dark">壽豐部落</span>的故事
+            </h2>
+            
+            <p class="text-base md:text-lg text-[#424242] dark:text-text-dark-secondary mb-8 animate__animated animate__fadeInUp animate__delay-1s">
+                深入了解歸順後的七腳川族人，後續為了保存文化而做出的行動。
+            </p>
+            
+        </div>
+        
+        <div class="mt-4 mb-4">
+            <a href="#formation" class="btn-hover inline-block bg-primary text-white dark:bg-primary-dark dark:text-background-dark font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transform transition-all duration-300 animate__animated animate__pulse animate__delay-2s animate__infinite">
+                開始閱讀吧! <i class="fas fa-arrow-down ml-2"></i>
+            </a>
+        </div>
+    </div>
+        
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto animate__animated animate__fadeIn animate__delay-2s">
+            <div class="text-center">
+            </div>
+            <div class="text-center">
+                
+            </div>
+            <div class="text-center">
+               
+            </div>
+            <div class="text-center">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+        <div class="container mx-auto px-4 py-16 md:py-24 space-y-20">
+
+            <section id="formation" class="animate-on-scroll">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    <i class="fas fa-map-signs text-primary dark:text-primary-dark mr-3"></i>歷史淵源
+                </h2>
+                <div class="grid md:grid-cols-5 gap-8 items-center">
+                    <div class="md:col-span-3">
+                        <p class="text-lg text-text-secondary dark:text-text-dark-secondary mb-4">
+                            現今的壽豐部落，其根源可追溯至百年前的<span class="tooltip-trigger">七腳川社<span class="tooltip-content">Cikasuan，為阿美族五大部落之一，原居於花蓮平原。 <a href="#" onclick="event.preventDefault();">更多...</a></span></span>族人的遷徙歷程充滿艱辛，部分族人在遷移過程中因疲憊而停留，亦有部分是為便於日軍管理而被迫遷徙。
+                        </p>
+                        <p class="text-lg text-text-secondary dark:text-text-dark-secondary mb-6">
+                            部落最初的所在地是一片廣大的沼澤地。在農業時代，周邊耕種水稻所排出的水匯流於此，後因日軍的規劃而逐漸轉變為居住地。
+                        </p>
+                        <p class="text-lg text-text-secondary dark:text-text-dark-secondary bg-background-light dark:bg-background-dark-soft p-4 rounded-lg border-l-4 border-secondary dark:border-secondary-dark">
+                            抗日的七腳川社(Cikasuan)，為阿美族五大部落之一，原居於花蓮平原。 <a href="#glossary-cikasuan"></a></span></span>族人，在大正三年(1914)因日警的大舉攻擊，退居今重光上方的(Cimiyawan)，次年歸順，社眾下山，初居魯給(Loki)，後因耕地不足，向外遷徙或出外謀生。至民國三十四年(1945)，Loki社因遭遇三次颱風，農田嚴重流失，共三十四戶遷來定居。民國九十四年(2005年)之人口統計，壽豐目前有650位阿美族人，其中七腳川後裔占大多數。
+                        </p>
+                    </div>
+                    <div class="md:col-span-2">
+                        <div class="relative pl-6">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4 class="font-bold text-primary dark:text-primary-dark">1908年</h4>
+                                <p class="text-text-secondary dark:text-text-dark-secondary">發生<span class="tooltip-trigger">七腳川事件<span class="tooltip-content">日本統治時期，因日警欺凌族人而引發的阿美族抗日事件，導致七腳川社被摧毀，族人被迫遷徙。 <a href="#glossary-cikasuan-incident">更多...</a></span></span>，族人從吉安太昌部落遷徙至臺東鹿野，途經多個部落。</p>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4 class="font-bold text-primary dark:text-primary-dark">1915年</h4>
+                                <p class="text-text-secondary dark:text-text-dark-secondary">歸順的族人下山，初居魯給(Loki)。</p>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4 class="font-bold text-primary dark:text-primary-dark">1945年</h4>
+                                <p class="text-text-secondary dark:text-text-dark-secondary">因颱風侵襲，34戶族人從Loki遷至現址，形成壽豐部落。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="composition">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        <i class="fas fa-sitemap text-primary dark:text-primary-dark mr-3"></i>部落構成
+    </h2>
+    <p class="text-lg text-text-secondary dark:text-text-dark-secondary max-w-3xl mx-auto mb-12">
+        今日的壽豐部落由七腳川社後裔組成的阿美族部落，位於花蓮縣壽豐鄉。 <a href="#glossary-shoufeng-tribe"></a></span></span>在行政上被劃分為三個緊密相連的小部落，各自擁有獨特的名稱由來與故事。
+    </p>
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="card-hover bg-background-light dark:bg-background-dark-soft p-8 rounded-xl shadow-lg text-center">
+            <i class="fas fa-bridge-water text-5xl text-accent mb-4"></i>
+            <h3 class="text-2xl font-bold mb-2">Cihamengan<br><span class="text-xl font-normal">(橋頭部落)</span></h3>
+            <p class="text-text-secondary dark:text-text-dark-secondary text-left">
+                Cihamengan的命名是為了感念一位名叫Hameng的先驅者。早期此地是一片適合種植水稻的沼澤區，由從山下部落遷移來的族人定居。為感謝第一位來此開墾並召集親友共同奮鬥的Hameng，部落便將此地命名為Cihamengan。目前，此部落有42戶原住民家庭居住。
+            </p>
+        </div>
+        <div class="card-hover bg-background-light dark:bg-background-dark-soft p-8 rounded-xl shadow-lg text-center" style="--delay: 0.2s;">
+            <i class="fas fa-tree text-5xl text-accent mb-4"></i>
+            <h3 class="text-2xl font-bold mb-2">Ci'alupalan<br><span class="text-xl font-normal">(山下部落)</span></h3>
+            <p class="text-text-secondary dark:text-text-dark-secondary text-left">
+                Ci'alupalan的歷史與Cikasuan戰役息息相關。戰後族人被迫遷徙，順從日人命令居於今日鯉魚潭露營區一帶，後因1940年代的頻繁颱風洪水而再次遷徙，最終形成了現在的部落。據耆老所述，此地曾種植許多alupal(柿子) 而得名，又因緊鄰壽神社，俗稱為山下部落。這裡被視為壽豐村部落形成的初始之地，目前，此部落約有58戶原住民家庭居住。
+            </p>
+        </div>
+        <div class="card-hover bg-background-light dark:bg-background-dark-soft p-8 rounded-xl shadow-lg text-center" style="--delay: 0.4s;">
+            <svg class="mx-auto mb-4" width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 95V50M50 50L10 10M50 50L90 10" stroke="#FFC107" stroke-width="10" stroke-linecap="round"/>
+            </svg>
+            <h3 class="text-2xl font-bold mb-2">Cisanasay<br><span class="text-xl font-normal">(三文路部落)</span></h3>
+            <p class="text-text-secondary dark:text-text-dark-secondary text-left">
+                Cisanasay的名稱由來有二說：一為紀念漢人Sanfan與原住民女性通婚並在此開墾，故鄉公所將此處命名為「三文路」。另一說則指此地為重要的三叉路口，分別通往平和、光榮部落與壽豐街上，而Sanasay阿美族語，意為「三叉路口」。 <a href="#glossary-sanasay"></a></span></span> 即「三叉」之意。目前，此部落約有30戶原住民家庭居住。
+            </p>
+        </div>
+    </div>
+</section>
+            
+          <section id="interview" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft p-8 rounded-xl shadow-lg">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        <i class="fas fa-microphone-lines text-primary dark:text-primary-dark mr-3"></i>文化訪談
+    </h2>
+    <p class="text-lg text-text-secondary dark:text-text-dark-secondary max-w-3xl mx-auto mb-10 ml-[-6]">
+        我們的調查最以橋頭部落(Cihamengan)為主，因此我們訪問了 : 正在推動文化復振的Ina O'ol、
+        重製黑色族服的Bayi Dungi、正職部落總幹事的Ama U'sin、新代「Ladiwas」的Kaka Ikat，了解他們的心路歷程，及所付出的行動與心力。
+    </p>
+    <div class="grid md:grid-cols-4 gap-8 text-center">
+        <div>
+            <a href="#void" class="block group relative" onclick="showProfile('li-wenhui')">
+                <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-white bg-primary dark:bg-primary-dark rounded-full px-3 py-1 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    <i class="fas fa-hand-pointer mr-1"></i>可點擊!
+                </span>
+                <div class="interviewee-photo bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
+                    <img src="https://github.com/OCikasuankami/OCikasuankami.github.oi/blob/main/%E6%88%91%E5%AA%BD%E5%AA%BD.jpg?raw=true" alt="李玟慧 (O'ol Kacaw)" class="object-cover object-center">
+                </div>
+                <h3 class="text-xl font-bold mt-2">李玟慧 (O'ol Kacaw)</h3>
+                <p class="text-primary dark:text-primary-dark font-medium">阿蜜斯工藝坊 負責人</p>
+            </a>
+        </div>
+        
+        <div>
+            <a href="#void" class="block group relative" onclick="showProfile('unnamed')">
+                <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-white bg-primary dark:bg-primary-dark rounded-full px-3 py-1 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    <i class="fas fa-hand-pointer mr-1"></i>可點擊!
+                </span>
+                <div class="interviewee-photo bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
+                    <img src="https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.io/refs/heads/main/%E9%98%BF%E5%85%AC%E8%B7%9F%E9%98%BF%E5%AC%A42.jpg" alt="何秀蘭個人照片" class="object-cover object-center">
+                </div>
+                <h3 class="text-xl font-bold mt-2">何秀蘭(Dungi Banil)</h3>
+                <p class="text-primary dark:text-primary-dark font-medium">阿蜜斯工藝坊 原負責人</p>
+            </a>
+        </div>
+
+        <div>
+            <a href="#void" class="block group relative" onclick="showProfile('new-interviewee')">
+                <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-white bg-primary dark:bg-primary-dark rounded-full px-3 py-1 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    <i class="fas fa-hand-pointer mr-1"></i>可點擊!
+                </span>
+                <div class="interviewee-photo bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
+                    <img src="https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.io/refs/heads/main/U'sin.jpg" alt="李文誠個人照片" class="object-cover object-center">
+                </div>
+                <h3 class="text-xl font-bold mt-2">李文誠(U'sin Kacaw)</h3>
+                <p class="text-primary dark:text-primary-dark font-medium">部落總幹事</p>
+            </a>
+        </div>
+        
+        <div>
+            <a href="#void" class="block group relative" onclick="showProfile('new-placeholder')">
+                <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-white bg-primary dark:bg-primary-dark rounded-full px-3 py-1 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    <i class="fas fa-hand-pointer mr-1"></i>可點擊!
+                </span>
+                <div class="interviewee-photo bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
+                    <img src="https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.io/refs/heads/main/%E5%A8%81%E5%BB%B72.jpg" alt="新訪談者照片" class="object-cover object-center">
+                </div>
+                <h3 class="text-xl font-bold mt-2">林威廷(Ikat Ida)</h3>
+                <p class="text-primary dark:text-primary-dark font-medium">Ladiwas階級新生</p>
+            </a>
+        </div>
+    </div>
+    
+    <div id="li-wenhui-content" class="interview-content active mt-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div>
+                <h4 class="text-xl font-bold mb-4">歷史觸動與文化意識</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    2008 年大學畢業返鄉後，O'ol 參與「七腳川事件百週年展覽」策展，深刻體會到文化傳承的重要性。透過訪談，她驚訝發現部落曾長期隱藏七腳川事件的歷史，許多年長者甚至不再自稱「七腳川人」。這讓她感受到歷史逐漸被遺忘的危機，也強化了她守護文化的決心。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">文化與生活的連結</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    對 O'ol 而言，部落文化與土地、農作和祭典密不可分。豐年祭不只是儀式，更是依循自然與農作週期的生活節奏。然而，她也意識到少子化對文化延續的威脅，加上自身家族曾歷經遷徙與艱辛重返故土，卻有族人對這段歷史陌生，進一步加深了她的危機感。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">突破性別侷限推動文化</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    在推動文化傳承的過程中，O'ol 面臨女性在部落階級制度中無法直接發言的限制。她選擇透過哥哥與叔伯們發聲，逐步推動文化課程與年齡階級訓練。課程從歷史到技藝，讓家長逐漸支持孩子參與。隨著人數增加，豐年祭前的訓練也成為文化復振的重要基礎。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">傳承策略與未來展望</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    O'ol 早期的心態是「趁長輩還在，趕快保存記憶與技藝」。如今，她已累積豐富的課程與知識，將重點轉向年輕一代，設計出更細緻的培訓，如小獵人訓練、祭歌傳唱、編織器物、縫製服飾、釀酒與烹飪等。她堅信，唯有讓文化在代代族人的生活中實踐，部落文化才能真正延續下去。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="unnamed-content" class="interview-content mt-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div>
+                <h4 class="text-xl font-bold mb-4">成長背景與縫紉技術的養成</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    Dungi 自小在農家長大，國小畢業後便跟著父母務農，也靠農作換取零用錢。十七、八歲時，在父親鼓勵下學習縫紉，很快掌握襯衫、西裝、裙子、長褲等製作技巧，並常替親友修改衣物。早期使用腳踏縫紉機，進入成衣廠後才接觸工業機台。婚後，她一邊務農，一邊持續縫製衣物，甚至親手做孕婦裝與嬰兒服。多年成衣廠經驗讓她技術紮實，後來回鄉後才開始接觸阿美族傳統服飾的製作。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">族服製作與教學推廣</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    因緣際會下，Dungi 投入族服製作，靠著手工與打版的方式，帶著孩子騎摩托車一家一戶展示作品，逐漸累積口碑。最終她受邀成為部落大學講師，教授族服製作。她不僅復原傳統服飾，也推動手工縫製的學習，讓族人重新體會婦女們在農務與家務間縫製族服的辛勞。
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">黑色族服的復振與挑戰</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    因女兒O'ol的田調與家族保存的服飾，Dungi 開始研究並復製黑色族服。最初雖面臨質疑與孤立，但她仍堅持推動，並逐漸獲得更多部落舞團及年輕人的認同。她解釋黑色族服原本是長袖，適合日常農作，但因日治時期的表演需求才改為紅色短袖。對她而言，黑色族服的復振不只是服飾的美感，更承載著歷史記憶與文化認同。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">循跡活動與文化傳承</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    近年部落推動「循跡」活動，從太昌沿木瓜溪到溪口、鹿野，讓年輕人赤腳或穿族服溯溪，親身體驗祖先逃難的艱辛。雖過程艱苦，仍有越來越多青年堅持參與，體會祖先堅毅的精神。如今雖已退休，Dungi 仍持續投入族服重製與文化復振，將心力奉獻給部落，期望為後代鋪設文化傳承之路。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="new-interviewee-content" class="interview-content mt-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div>
+                <h4 class="text-xl font-bold mb-4">童年的成長記憶</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    U'sin 出生於壽豐，從小與兄姐、堂哥們一起讀書、玩耍。國小、國中時代，他積極參與運動，如田徑、棒球，青春歲月大多在校園和運動場度過。高中選擇就讀花蓮高商，但因家境經濟壓力與對商科不擅長，他毅然報考軍校，展開長年的軍旅生涯。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">文化啟蒙與年齡階級</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    雖然求學與軍旅使他與部落距離拉開，但國中時參與成年禮與勇士舞的經驗，成為他文化自信的重要養分。當年哥哥們嚴格訓練，讓他意識到男子也能在舞蹈中展現榮耀。這段經歷後來延伸到高中時期的舞蹈比賽，並為他帶來自信與成就感。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">承擔責任的契機</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    真正的轉捩點，是在接任部落幹部之後。父親的離世，讓 U'sin 更深刻反思家族與部落的責任。他開始認真參與祭典與部落事務，推動青年訓練與傳統技能學習，從陷阱、捕魚到夜宿的基礎知識，皆希望能延續傳統。對他而言，說服青年並非靠言語，而是透過身體力行的陪伴與示範，讓更多人願意回到部落。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">文化延續的使命感</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    在U'sin眼中，部落文化與土地、農作、祭典緊密相連。即使面臨少子化與長輩逐漸淡出的危機，他仍相信，只要營造參與的成就感，就能讓年輕一代記住自己的根源。他期待文化傳承不再是少數人的責任，而是所有族人的共同使命。對 U'sin 來說，這不僅是參與，更是一份來自部落與歷史的召喚。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="new-placeholder-content" class="interview-content mt-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div>
+                <h4 class="text-xl font-bold mb-4">童年經驗與家人影響</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    Ikat 在五、六歲時，曾因父親而參加過一次部落活動，但隨著進入求學階段及父母的考量，他便不再參與。當時父親也逐漸停止參與祭儀，因此 Ikat 對部落的認識相當有限，只知道有豐年祭。由於他與父親年齡差距大，兩人雖屬同一階層，卻差一輪。父親曾分享過過去年齡階層訓練的辛苦，因而不希望孩子再經歷那樣的操勞。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">入階經歷與初步感受</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    十二歲時正逢入階年齡，哥哥曾詢問他是否要參加，但因母親尚未認可，他直到十三歲才正式入階並參與祭儀。第一次參與時，內心感受五味雜陳，不太適應訓練的疲憊感，但同時也感受到來自部落的深刻認同感，那是一種彷彿從血脈中延伸出來的情感。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">逐步投入祭儀與文化</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    在參與過程中，Ikat 細心觀察族人的歌聲、族語與服飾。第一次跳舞時，他只顧著動作是否正確，未能體會其中氛圍。但隨著持續參與，他開始沉浸於祭儀的氛圍中，跟著吟唱、喊聲，逐漸將自己完全投入並陶醉於樂舞之中。
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xl font-bold mb-4">對部落未來的展望</h4>
+                <p class="text-text-secondary dark:text-text-dark-secondary">
+                    雖然少子化使新一代的階級人數愈來愈少，但 Ikat 認為這不會阻斷文化傳承的道路。身為國中生的他，已展現出想為部落付出的心意。他相信，只要年輕一代願意積極投入，部落的未來必能更加茁壯。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-12 text-center text-lg italic text-text-secondary dark:text-text-dark-secondary">
+        <p id="quote-li-wenhui" class="active">「我相信，部落文化只有在代代人的生活中延續，才能真正地活下去。」-李玟慧O'ol Kacaw</p>
+        <p id="quote-unnamed" class="hidden">「不管是年齡階級、祭典還是族服，都有自己的特色。我希望年輕人要這些傳承下來。」-何秀蘭Dungi Banil</p>
+        <p id="quote-new-interviewee" class="hidden">「我一直希望這個東西可以延續。我不會寫計畫，但我想要年輕人願意繼續在部落做這些事情，影響更多人願意參與。」-李文誠U'sin Kacaw</p>
+        <p id="quote-new-placeholder" class="hidden">「我可能不會說族語，但我還是會驕傲的說:『我是阿美族，我來自七腳川。』」-林威廷Ikat Ida</p>
+    </div>
+</section>
+            <section id="ceremony" x-data="{ tab: 'miladis' }" class="animate-on-scroll">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    <i class="fas fa-feather-alt text-primary dark:text-primary-dark mr-3"></i>傳統祭儀
+                </h2>
+
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex justify-center border-b border-gray-300 dark:border-gray-600 mb-8">
+                        <button @click="tab = 'miladis'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': tab === 'miladis', 'border-transparent': tab !== 'miladis'}" class="py-2 px-6 font-semibold border-b-2 transition-colors">捕魚祭</button>
+                        <button @click="tab = 'milisin'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': tab === 'milisin', 'border-transparent': tab !== 'milisin'}" class="py-2 px-6 font-semibold border-b-2 transition-colors">豐年祭</button>
+                        <button @click="tab = 'paken-to-liliw'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': tab === 'paken-to-liliw', 'border-transparent': tab !== 'paken-to-liliw'}" class="py-2 px-6 font-semibold border-b-2 transition-colors">捕鳥祭</button>
+                    </div>
+
+                    <div x-show="tab === 'miladis'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn">
+                        <h3 class="text-2xl font-bold mb-4">Miladis (捕魚祭)</h3>
+                        <p class="text-lg text-text-secondary dark:text-text-dark-secondary mb-6">
+                            在每年5、6月小米、水稻收成後，部落會舉行捕魚祭。早期部落盛行<span class="tooltip-trigger">Mapapaliw<span class="tooltip-content">指部落成員間互相幫忙、交換勞力的傳統習俗。 <a href="#glossary-mapapaliw">更多...</a></span></span>(換工)，待所有家戶收成完畢，大家便會一同捕魚，並在最後收成的家戶中聚餐，象徵一年的辛勞圓滿結束。
+                        </p>
+                        <h4 class="text-xl font-semibold mb-4">階級合作的捕魚法：</h4>
+                        <div class="bg-background-light dark:bg-background-dark-soft p-6 rounded-lg">
+                            <p class="mb-4">不同年齡階級會運用不同的捕魚技巧。例如，以前的Alamay <a href="#glossary-alamay"></a></span></span>階級，會展現與自然共存的智慧：</p>
+                            <div class="grid md:grid-cols-4 gap-4 text-center">
+                                <div class="flex flex-col items-center p-2">
+                                    <i class="fas fa-leaf text-4xl text-green-500 mb-2"></i>
+                                    <span class="font-bold">1. 採集</span>
+                                    <p class="text-sm">青年至山上採集菇婆芋一種大型葉片的植物，其葉子被用來輔助傳統捕魚。 <a href="#glossary-gupoyu"></a></span></span></p>
+                                </div>
+                                <div class="flex flex-col items-center p-2">
+                                    <i class="fas fa-hand-rock text-4xl text-gray-500 mb-2"></i>
+                                    <span class="font-bold">2. 截流</span>
+                                    <p class="text-sm">在河中用石頭築壩，僅留一處水道。</p>
+                                </div>
+                                <div class="flex flex-col items-center p-2">
+                                    <i class="fas fa-puzzle-piece text-4xl text-green-700 mb-2"></i>
+                                    <span class="font-bold">3. 貼葉</span>
+                                    <p class="text-sm">將菇婆芋葉貼在石縫上，防止魚隻鑽隙逃脫。</p>
+                                </div>
+                                <div class="flex flex-col items-center p-2">
+                                    <i class="fas fa-shopping-basket text-4xl text-yellow-700 mb-2"></i>
+                                    <span class="font-bold">4. 置簍</span>
+                                    <p class="text-sm">在出水口放置魚簍，等待魚群自投羅網。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h3 class="text-2xl font-bold mb-4">現代祭儀的傳承</h3>
+                            <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
+                                現今的捕魚祭，年齡階級的兄長們會帶領新進的弟弟們，在花蓮溪的米棧大橋與月眉大橋之間進行。雖然場域與工具已有改變，但文化傳承的核心精神不變。
+                            </p>
+                            <ul class="list-disc list-inside mt-4 space-y-2 text-text-secondary dark:text-text-dark-secondary">
+                                <li><strong>地點：</strong>花蓮溪流 (米棧大橋與月眉大橋間)。</li>
+                                <li><strong>工具：</strong>主要使用<span class="tooltip-trigger">八卦網<span class="tooltip-content">一種圓形手拋式漁網，用於淺水區域捕魚。 <a href="#glossary-bagua-net">更多...</a></span></span>與<span class="tooltip-trigger">魚荃<span class="tooltip-content">一種傳統的竹編或網製的捕魚陷阱。 <a href="#glossary-fish-trap">更多...</a></span></span>。</li>
+                                <li><strong>歷史方式：</strong>在早期，族人曾使用<span class="tooltip-trigger">魚藤<span class="tooltip-content">一種含有天然毒素的植物，其汁液可暫時麻痺魚類，便於捕捉，現已較少使用。 <a href="#glossary-fish-vine">更多...</a></span></span>的汁液來麻痺魚群，這是一種更古老的漁法。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div x-show="tab === 'milisin'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn">
+                        <h3 class="text-2xl font-bold mb-4">Milisin (豐年祭)</h3>
+                        <div class="bg-background-light dark:bg-background-dark-soft p-6 rounded-lg mb-6">
+                            <h4 class="text-xl font-semibold mb-2">豐年祭前的準備</h4>
+                            <p class="text-lg text-text-secondary dark:text-text-dark-secondary mb-4">
+                                過去豐年祭每年九月舉行，為期七天，時機在第二期稻作插秧與除草後，以確保所有族人都能參與。
+                                <br>
+                                而現在的豐年祭在每年八月舉行，期限為三天。
+                            </p>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-md border-l-4 border-accent dark:border-accent">
+                                <h5 class="font-bold text-lg mb-2">重要的驅除儀式：Mikeruh</h5>
+                                <p class="text-text-secondary dark:text-text-dark-secondary">
+                                    為了祈求豐收，豐年祭前會先進行Mikeruh驅除儀式。Sikawasay（祭師）會到農地進行儀式，驅除穢氣，並與祖靈對話。儀式中會使用麻糬（tulun）和酒，結束後參與者一同分享，直到酒喝完才能回家。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-background-light dark:bg-background-dark-soft p-6 rounded-lg">
+                            <h4 class="text-xl font-semibold mb-2">豐年祭的三天</h4>
+                            <ul class="list-disc list-inside space-y-4 text-text-secondary dark:text-text-dark-secondary">
+                                <li>
+                                    <strong class="text-text dark:text-text-dark">第一天：</strong>各階級成員搭建瞭望台並準備祭典事宜。過去青年會上山打獵，現則改為宰殺部落飼養的牲畜。男子們會在會場過夜，並整理場地。
+                                </li>
+                                <li>
+                                    <strong class="text-text dark:text-text-dark">第二天：</strong>運動會與趣味競賽，晚上則有青年之夜，各年齡階級會表演。
+                                </li>
+                                <li>
+                                    <strong class="text-text dark:text-text-dark">第三天：</strong>Malialac（分食魚肉）。此活動僅限男性參與，考驗年輕人的體力。過去漁獲量少，魚僅供當場食用；現多向漁場採購，捕魚方式也已改變。
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div x-show="tab === 'paken-to-liliw'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn">
+                        <h3 class="text-2xl font-bold mb-4">Paken tu liliw (捕鳥祭)</h3>
+                        <p class="text-lg text-text-secondary dark:text-text-dark-secondary mb-4">
+                            過去小米田常遭鳥類啄食，因此族人會在每年十二月至隔年二月間進行捕鳥。根據李明德（Kacaw Dawkin）的說法，此習俗有其重要原因：
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-text-secondary dark:text-text-dark-secondary mb-6">
+                            <li>生態平衡：只在成鳥時期捕捉，以維持生態永續。</li>
+                            <li>農事考量：播種後農忙，僅在特定時間有空閒。</li>
+                            <li>社交聚會：捕鳥活動是難得的休息時光，讓族人能聚餐聊天。</li>
+                            <li>飲食文化：最初在田邊烤給幫忙的人吃，後演變為正式的祭儀。</li>
+                        </ul>
+                        <div class="bg-background-light dark:bg-background-dark-soft p-6 rounded-lg">
+                            <h4 class="text-xl font-semibold mb-2">祭儀禁忌與規範</h4>
+                            <p class="text-text-secondary dark:text-text-dark-secondary mb-4">
+                                捕鳥時會使用陷阱、網子等獵具，但女性不得參與。男子在進山前必須向祖靈祈求平安，並祭拜山神和獵神Calah。同時，族人不能隨意觸摸他人的獵具，以免身體不適。獵到動物後，必須將獵物的頭部祭拜山神，以示感謝。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="age-grade" x-data="{ currentGrade: 'ladiwas' }" class="animate-on-scroll">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        <i class="fas fa-shield-alt text-primary dark:text-primary-dark mr-3"></i>年齡階級
+    </h2>
+    <p class="text-lg text-text-secondary dark:text-text-dark-secondary max-w-3xl mx-auto mb-12">
+        年齡階級是維繫部落社會結構與文化傳承的核心，每個階級都肩負著不同的責任與任務，
+        <br>
+        並透過嚴格的訓練來培養部落未來的領導者。
+    </p>
+    <div class="max-w-4xl mx-auto">
+        <div class="flex flex-wrap justify-center border-b border-gray-300 dark:border-gray-600 mb-8">
+            <button @click="currentGrade = 'ladiwas'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'ladiwas', 'border-transparent': currentGrade !== 'ladiwas'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Ladiwas</button>
+            <button @click="currentGrade = 'alamay'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'alamay', 'border-transparent': currentGrade !== 'alamay'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Alamay</button>
+            <button @click="currentGrade = 'maoway'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'maoway', 'border-transparent': currentGrade !== 'maoway'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Ma'uway</button>
+            <button @click="currentGrade = 'alemet'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'alemet', 'border-transparent': currentGrade !== 'alemet'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Alemet</button>
+            <button @click="currentGrade = 'kohakoh'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'kohakoh', 'border-transparent': currentGrade !== 'kohakoh'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Kuhakuh</button>
+            <button @click="currentGrade = 'copolan'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'copolan', 'border-transparent': currentGrade !== 'copolan'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Cupulan</button>
+            <button @click="currentGrade = 'alafangas'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentGrade === 'alafangas', 'border-transparent': currentGrade !== 'alafangas'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">Lafangas</button>
+        </div>
+
+        <div x-show="currentGrade === 'ladiwas'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn flex flex-col md:flex-row items-center gap-8 bg-background-light dark:bg-background-dark-soft p-6 rounded-lg shadow-md">
+            <div class="age-grade-photo bg-gray-300 dark:bg-gray-700 flex-shrink-0">
+                <img src="https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.oi/refs/heads/main/%E7%A5%9E%E5%A3%BA.jpg" alt="Ladiwas 階級" class="object-cover object-center">
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold mb-4">Ladiwas 階級</h3>
+                <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
+                    級名語意 : 神壺<br>
+                    象徵意涵 : 祭典的重要具，通神的工具，象徵通神靈的隊伍。
+                    <br>
+                    年齡分布 : 2006-2012 年次
+                    <br><br>
+                    Ladiwas 是近年最新的階級，因為是最小的階級，所以Ladiwas 做的工作是最多的。協助部落整理環境或者處理祭典佈置和善後工作，這些工作是要由上一階進行指導和協助才可以完成。即使因為少子化和當兵的關係無法回到部落，但只要心與部落連結，內心的思念自然而然就會傳回部落。
+                    <br><br>
+                    「如果沒有我們，部落的運作系統就會亂掉。雖然很累，但只要想到是為部落的族人做事，我就會拼盡全力，這種精神永遠不散!身為Cikasuan(七腳川)的族人，我很驕傲。」
+                    -Muy O'sing
+                </p>
+            </div>
+        </div>
+
+        <div x-show="currentGrade === 'alamay'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn flex flex-col md:flex-row items-center gap-8 bg-background-light dark:bg-background-dark-soft p-6 rounded-lg shadow-md">
+            <div class="age-grade-photo bg-gray-300 dark:bg-gray-700 flex-shrink-0">
+                <img src="https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.io/refs/heads/main/%E9%98%BF%E6%8B%89%E9%BA%A5.jpeg" alt="Alamay階級" class="object-cover object-center">
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold mb-4">Alamay 階級</h3>
+                <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
+                    級名語意 : 魚鱗雲<br>
+                    象徵意涵 : 如魚麟狀的雲朵，美麗而燦爛。
+                    <br>
+                    年齡分布 : 1999-2005 年次
+                    <br><br>
+                    Alamay 目前是第二小的階級，也是進入可以開始佩戴 Tinpih (大羽冠)的階段。由於新的 Ladiwas 在前年入階，工作分配也從過去以雜務為主，逐漸轉變為需要帶領 safa (弟弟)們共同完成部落事務。
+                    <br><br>
+                    「從事部落事務絕對不是輕鬆的事。我們會以身作則，盡力把每件事情做到最好，並將 kaka (哥哥)教導我們的團結精神，傳遞給各個階層、整個部落，以及未來的 safa 們。Sakilemelen kita Cikasoan!(加油七腳川!)」
+                    -Alamay階級的所有kaka
+
+                </p>
+            </div>
+        </div>
+
+        <div x-show="currentGrade === 'maoway'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn flex flex-col md:flex-row items-center gap-8 bg-background-light dark:bg-background-dark-soft p-6 rounded-lg shadow-md">
+            <div class="age-grade-photo bg-gray-300 dark:bg-gray-700 flex-shrink-0">
+                <img src="https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.oi/refs/heads/main/%E9%BB%83%E8%97%A4.jpg" alt="Ma'uway 階級" class="object-cover object-center">
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold mb-4">Ma'uway 階級</h3>
+                <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
+                    級名語意 : 黃藤<br>
+                    象徵意涵 : 作為建材，象徵團結之意。
+                    <br>
+                    年齡分布 : 1992-1998 年次
+                    <br><br>
+                    雖然表面上不算特別團結，但許多在外縣市的同級仍默默以金錢與勞力支持部落，使文化得以延續。他們認為傳承的核心在於 歌謠、語言與服飾；部落和軍隊一樣，遵循著嚴謹的規矩，由人帶領與指導。軍隊保護的是國家和人民，而部落守護的則是族人的安全，同時也保護我們的文化傳承。
+                    <br><br>
+                    「豐年祭不只是慶典，而是要去了解部落的由來，認清自己的身份，並肯定身為原住民的價值。｣-Namuh
+                </p>
+            </div>
+        </div>
+
+        <div x-show="currentGrade === 'alemet'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn flex flex-col md:flex-row items-center gap-8 bg-background-light dark:bg-background-dark-soft p-6 rounded-lg shadow-md">
+            <div class="age-grade-photo bg-gray-300 dark:bg-gray-700 flex-shrink-0">
+                <img src="https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.oi/refs/heads/main/%E8%87%BA%E6%9D%B1%E7%81%AB%E5%88%BA%E6%9C%A8.jpg" alt="'Alemet 階級" class="object-cover object-center">
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold mb-4">Alemet 階級</h3>
+                <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
+                    級名語意 : 臺東火刺木（狀元紅）<br>
+                    象徵意涵 : 象徵強韌的生命力，即使在惡劣環境中也能生存茁壯，代表堅毅與適應力。
+                    <br>
+                    年齡分布 : 1985-1991 年次
+                    <br><br>
+                    Alemet 是部落中屬於第四級的階級，成員多已達適婚年齡。因具備較高的行動力，Alemet 在年祭中扮演機動性的角色，主要負責場地整理、分配食物，其餘工作則依照上級族人的指示執行。「火刺木」亦稱「狀元紅」，其果實火紅鮮豔，象徵著堅毅、榮耀與不屈的精神。
+                    <br><br>
+                    「我們Alemet年齡層在部落人數少，但每當我們豐年祭時，我們Alemet兄弟一定會記得回來部落幫忙。Alemet 兄弟名言：『人少同心，齊力斷金。人在家是溫暖的；人在部落是開心的；人在每次的豐年祭相聚都是幸福的。」-Kacaw Idiw
+                </p>
+            </div>
+        </div>
+
+        <div x-show="currentGrade === 'kohakoh'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn flex flex-col md:flex-row items-center gap-8 bg-background-light dark:bg-background-dark-soft p-6 rounded-lg shadow-md">
+            <div class="age-grade-photo bg-gray-300 dark:bg-gray-700 flex-shrink-0">
+                <img src="https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.oi/refs/heads/main/%E7%9C%BC%E9%8F%A1%E8%9B%87.jpg" alt="Kuhakuh 階級" class="object-cover object-center">
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold mb-4">Kuhakuh 階級</h3>
+                <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
+                    級名語意 : 眼鏡蛇<br>
+                    象徵意涵 : 象徵雄壯威武，不怕苦、不怕難、不怕死。
+                    <br>
+                    年齡分布 : 1978-1984 年次
+                    <br><br>
+                    Kohakoh 為現任會長階級，其成員行動力強、擅長協調，長期承接並推動部落的重要任務。他們認為個體的價值不應由標籤決定，而在於訓練與貢獻；部落原本象徵凝聚與安全，但若界線僵化，便可能形成對立。在網路時代，部落的意涵擴展為社群，雖能帶來歸屬感，卻也可能加劇分化。真正的力量來自跨部落的理解、連結與合作。
+                    <br><br>
+                    「不敢說我們是最強階級，但我們努力承接各項工作、取得成果，也盡力成為 Safa 們的榜樣。良性競爭將讓未來有更優秀的階級超越我們，共同成為部落最強戰力。」
+                    <br>
+                    -Sra Kacaw
+                    <br><br>
+                    「『部落』在我的心中代表著共同的文化、信仰和歷史，是社會最古老、最基本的互助，它提供了安全感和身份認同。」-O'sing
+                </p>
+            </div>
+        </div>
+
+        <div x-show="currentGrade === 'copolan'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn flex flex-col md:flex-row items-center gap-8 bg-background-light dark:bg-background-dark-soft p-6 rounded-lg shadow-md">
+            <div class="age-grade-photo bg-gray-300 dark:bg-gray-700 flex-shrink-0">
+                <img src="https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.oi/refs/heads/main/%E8%BE%A3%E6%A4%92.jpg" alt="Cupulan 階級" class="object-cover object-center">
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold mb-4">Cupulan 階級</h3>
+                <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
+                    級名語意 : 辣椒<br>
+                    象徵意涵 : 象徵辦事積極、行事果斷、動作迅速、頑強不退縮。
+                    <br>
+                    年齡分布 : 1971-1977 年次
+                    <br><br>
+                    目前是承擔總幹事職務責任的階級，接受頭目和耆老的命令和指導，負責部落事務的規劃及協調工作，並督導男子階級完成任務分派和檢討。
+                    <br><br>
+                    「我們肩負部落承上啟下的責任，也是對各層級幹部、各男子階級以及族人們的溝通橋樑渠道，我也期許自己的用心和態度，能讓祖靈們安心和撫慰。」-U'sin Kacaw
+                </p>
+            </div>
+        </div>
+        
+        <div x-show="currentGrade === 'alafangas'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn flex flex-col md:flex-row items-center gap-8 bg-background-light dark:bg-background-dark-soft p-6 rounded-lg shadow-md">
+            <div class="age-grade-photo bg-gray-300 dark:bg-gray-700 flex-shrink-0">
+                <img src="https://raw.githubusercontent.com/OCikasuankami/OCikasuankami.github.io/refs/heads/main/%E8%8B%A6%E6%A5%9D%E6%A8%B9.jpg" alt="Lafangas 階級" class="object-cover object-center">
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold mb-4">Lafangas 階級</h3>
+                <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
+                    級名語意 : 苦楝樹<br>
+                    象徵意涵 : 最佳建材，表示族中優良的人才。
+                    <br>
+                    年齡分布 : 1964-1970 年次
+                    <br><br>
+                    Lafangas這一個階級承擔的是「傳承」。尊重與信任長輩是部落延續的根基，在服從中學習、在信任中成長，才能把責任傳下去。青年要有責任感，把榮譽放在心中，成為safa的榜樣，凝聚人心、帶領下一代。同時，我們要敢說、敢做、敢溝通，但更要謹記尊重長輩，重要的事應交由頭目與會長處理。傳統與文化並非一日之功，而是大家持續努力的成果，才能代代相傳，延續不息。
+                    <br><br>
+                    「因階級的關係部落職務必須傳到於下一個階級，這幾年部落的運作都很順利，每位幹部都非常優秀，讓部落的每一階級都團結、有向心力，讓我感到欣慰。」-Kayu
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="rite of passage" x-data="{ currentStep: 'step-one' }" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft p-8 rounded-xl shadow-lg mt-8">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        <i class="fas fa-hand-fist text-primary dark:text-primary-dark mr-3"></i>成年儀式
+    </h2>
+
+    <p class="text-lg text-text-secondary dark:text-text-dark-secondary max-w-3xl mx-auto mb-12">
+        部落每 8 年舉行 Masiseral 入階儀式，早期是男孩子在小學四、五年級加入，現在是在小學畢業後進行入階儀式。沿用退休階級名稱，七個級名 49 年循環一次，並分三梯次招募。
+    </p>
+
+
+    <div class="max-w-4xl mx-auto">
+        <div class="flex flex-wrap justify-center border-b border-gray-300 dark:border-gray-600 mb-8">
+            <button @click="currentStep = 'step-one'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentStep === 'step-one', 'border-transparent': currentStep !== 'step-one'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">第一梯</button>
+            <button @click="currentStep = 'step-two'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentStep === 'step-two', 'border-transparent': currentStep !== 'step-two'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">第二梯</button>
+            <button @click="currentStep = 'step-three'" :class="{'border-primary dark:border-primary-dark text-primary dark:text-primary-dark': currentStep === 'step-three', 'border-transparent': currentStep !== 'step-three'}" class="py-2 px-4 md:px-6 font-semibold border-b-2 transition-colors">第三梯</button>
+        </div>
+        
+        <div x-show="currentStep === 'step-one'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn bg-background-light dark:bg-background-dark-soft p-6 rounded-lg shadow-md">
+            <h4 class="text-2xl font-bold mb-4 text-center">Marengreng訓練</h4>
+            <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
+            招生時間 : 新入階第一年
+            <br>
+            活動內容 : 長跑訓練(Marengreng)
+            <br><br>
+            早期訓練方式 : 
+            <br>
+            凌晨時在山下頭目家集合出發，向北長跑至光榮村和榮橋後原路折返，跑壽豐國小學校操場跑一圈，即完成該晉級訓練。
+            <br>
+            現代訓練方式 : 
+            <br>
+            凌晨在壽豐活動中心集合，先做操再出發。跑向臺九線後往Cihamengan(橋頭部落)的方向長跑，再往Ci'alupalan(山下部落)跑進山裡，最後以衝刺的方式跑回活動中心，即完成該晉級訓練。
+            <br>
+            </p>
+        </div>
+
+        <div x-show="currentStep === 'step-two'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn bg-background-light dark:bg-background-dark-soft p-6 rounded-lg shadow-md">
+            <h4 class="text-2xl font-bold mb-4 text-center">Pacefa訓練</h4>
+            <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
+            招生時間 : 第二年
+            <br>
+            活動內容 : 砍竹、生火、煮飯、自我介紹、試膽訓練(在山上睡一晚即完成訓練。)
+            <br><br>
+            舉辦原因 :  
+            <br>
+            若有一年來不及入階者，可直接進入該階級一同進行訓練，已無長跑儀式的進行。
+            <br>
+            </p>
+        </div>
+
+        <div x-show="currentStep === 'step-three'" x-transition:enter="animate__animated animate__fadeIn" class="animate__animated animate__fadeIn bg-background-light dark:bg-background-dark-soft p-6 rounded-lg shadow-md">
+            <h4 class="text-2xl font-bold mb-4 text-center">Pasafa訓練</h4>
+            <p class="text-lg text-text-secondary dark:text-text-dark-secondary">
+            招生時間 : 第三年
+            <br>
+            活動內容 : 和第二年訓練內容一樣，增加捕魚訓練及祭歌練唱。
+            <br><br>
+            舉辦原因 : 
+            <br>
+            早期 : 
+            <br>
+            由於一個階級內涵蓋七個歲數的年齡層。若年紀太小時，父母親多會捨不得讓孩子進入階級訓練。因此，父母親可在第三梯次時送去入級。老人家則多形容是將漏網之魚全部招收。
+            <br>
+            現在 : 
+            <br>
+            因在上梯訓練時，有些新生還未完全熟悉訓練，有些則是剛入階或剛回來，所以才會再訓練一次，也是做最後的練習。
+            </p>
+        </div>
+    </div>
+</section>
+
+            <section id="glossary" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft rounded-lg shadow-md py-12 px-6 md:px-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 text-primary dark:text-primary-dark">關鍵術語</h2>
+                <dl class="grid md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div id="glossary-cikasuan">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">七腳川社 (Cikasuan)</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">過去位於花蓮吉安鄉的南勢阿美族部落，其阿美語名稱為Cikasuan，意為「出產薪柴甚多的地方」。但因爆發七腳川事件，族人被迫遷徙、逃離，事件過後，有些族人選擇歸順，有些族人選擇留在遷徙後的部落。而現在歸順的地點位於吉安鄉太昌部落，成為了「新七腳川社」</dd>
+                    </div>
+                    <div id="glossary-cikasuan-incident">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">七腳川事件</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">1908年發生的阿美族抗日事件，1914年後歸順。七腳川社遭日軍焚毀，族人被迫離開家園，四處遷徙。現今，七腳川的後裔們不斷尋找最初居住的部落、歌謠、祭典，才成為現在的「七腳川」。</dd>
+                    </div>
+                    <div id="glossary-mapapaliw">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">Mapapaliw</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">阿美族語，指「換工」，為了保護在農務期間工作的婦女，頭目下令族人互相協助，因此產生了「Mapapaliw」這個互助詞彙。</dd>
+                    </div>
+                    <div id="glossary-bagua-net">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">八卦網</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">一種捕魚工具，由繩子、網袋和鉛塊（網墜）組成，網緣圍繞鉛塊，撒出後能快速張開成圓形並沉入水中，利用重力在水中形成立體空間捕魚。</dd>
+                    </div>
+                    <div id="glossary-fish-trap">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">魚荃</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">一種傳統的捕魚工具，主要由竹子或黃藤編織而成，呈圓錐形狀，內部設有漏斗狀入口，使魚蝦能夠進入卻難以游出，以達到捕獲目的</dd>
+                    </div>
+                    <div id="glossary-fish-vine">
+                        <dt class="text-xl font-semibold text-text dark:text-text-dark">魚藤</dt>
+                        <dd class="mt-1 text-text-secondary dark:text-text-dark-secondary ml-4">一種含有天然毒素的植物，因其根部含有魚藤酮等天然毒素，搗爛根部汁液來毒魚、捕捉魚類，是早期農民和原住民廣泛使用的植物。 </dd>
+                    </div>
+                </dl>
+            </section>
+        </div>
+    </main>
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            // Theme Toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlTag = document.documentElement;
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            if (currentTheme === 'dark') {
+                htmlTag.classList.add('dark');
+            }
+            themeToggle.addEventListener('click', () => {
+                if (htmlTag.classList.contains('dark')) {
+                    htmlTag.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    htmlTag.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Interviewer Content Toggle
+            window.showProfile = function (profileId) {
+                const contents = document.querySelectorAll('.interview-content');
+                contents.forEach(content => content.classList.remove('active'));
+                const targetContent = document.getElementById(profileId + '-content');
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+                const quotes = document.querySelectorAll('[id^="quote-"]');
+                quotes.forEach(quote => quote.classList.add('hidden'));
+                const targetQuote = document.getElementById('quote-' + profileId);
+                if (targetQuote) {
+                    targetQuote.classList.remove('hidden');
+                }
+            };
+            // Initial call to set the default active profile
+            showProfile('li-wenhui');
+
+            // Scroll Animation
+            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            elementsToAnimate.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+<section id="guestbook" class="animate-on-scroll bg-background-light dark:bg-background-dark-soft p-8 rounded-xl shadow-lg mt-8">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        <i class="fas fa-comments text-primary dark:text-primary-dark mr-3"></i>留言板
+    </h2>
+    <p class="text-center text-lg text-text-secondary dark:text-text-dark-secondary max-w-3xl mx-auto mb-12">
+        謝謝您看到了這裡，如果可以，請幫我們留下您的感想及回饋喔~
+    </p>
+
+    <form id="guestbook-form" action="https://formspree.io/f/xjkavzgq" method="POST" class="max-w-xl mx-auto space-y-6">
+        <div>
+            <label for="name" class="block text-text-secondary dark:text-text-dark-secondary mb-2">姓名 (中文或族語名字)</label>
+            <input type="text" id="name" name="姓名" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark bg-background dark:bg-background-dark text-text dark:text-text-dark" placeholder="請輸入您的姓名">
+        </div>
+        <div>
+            <label for="email" class="block text-text-secondary dark:text-text-dark-secondary mb-2">電子郵件 <span class="text-red-500">*</span></label>
+            <input type="email" id="email" name="電子郵件" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark bg-background dark:bg-background-dark text-text dark:text-text-dark" placeholder="example@email.com" required>
+        </div>
+        <div>
+            <label for="message" class="block text-text-secondary dark:text-text-dark-secondary mb-2">留言心得</label>
+            <textarea id="message" name="留言心得" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-dark bg-background dark:bg-background-dark text-text dark:text-text-dark" placeholder="寫下您的心得或感想..." required></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn-hover inline-block bg-primary text-white dark:bg-primary-dark dark:text-background-dark font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transform transition-all duration-300">
+                送出吧! <i class="fas fa-paper-plane ml-2"></i>
+            </button>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('guestbook-form').addEventListener('submit', function(event) {
+            // 阻止表單的預設提交行為，避免網頁跳轉
+            event.preventDefault();
+
+            // 使用 Fetch API 將表單資料非同步傳送到 Formspree
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this), // 取得表單中的所有資料
+                headers: {
+                    'Accept': 'application/json' // 告知 Formspree 我們需要 JSON 格式的回應
+                }
+            })
+            .then(response => {
+                // 確認回應是否成功 (HTTP 狀態碼 200-299)
+                if (response.ok) {
+                    // 如果傳送成功，清空表單欄位
+                    const nameInput = document.getElementById('name');
+                    const emailInput = document.getElementById('email');
+                    const messageTextarea = document.getElementById('message');
+
+                    nameInput.value = '';
+                    emailInput.value = '';
+                    messageTextarea.value = '';
+                    
+                    console.log('留言已成功傳送並清空！');
+                    alert('成功送出！謝謝您的回饋。'); // 顯示成功訊息給使用者
+                } else {
+                    console.error('留言傳送失敗。');
+                    alert('哎呀！無法收到您的心意。');
+                }
+            })
+            .catch(error => {
+                console.error('傳送發生錯誤：', error);
+                alert('發生錯誤！檢查一下您的網路再傳送喔。');
+            });
+        });
+    </script>
+</section>
+</html>
